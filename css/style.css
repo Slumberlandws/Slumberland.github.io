@@ -1,0 +1,984 @@
+/* =========================================================
+   PttLB Website - Shared Theme
+   Theme colors derived from the design SVGs:
+     --cyan-light  #DBFFFA   (light background tint)
+     --cyan        #B4EFF4   (title box / accent)
+     --cyan-border #80E6F9   (light teal border)
+     --teal        #69BAC9   (mid teal border / accents)
+     --dark        #2E4F62   (dark blue boxes)
+   ========================================================= */
+
+:root {
+  --cyan-light: #DBFFFA;
+  --cyan: #B4EFF4;
+  --cyan-border: #80E6F9;
+  --teal: #69BAC9;
+  --teal-strong: #35a6bd;
+  --dark: #2E4F62;
+  --dark-deep: #1c3545;
+  --white: #ffffff;
+  --shadow: 0 10px 30px rgba(20, 60, 80, 0.35);
+  --shadow-soft: 0 6px 18px rgba(20, 60, 80, 0.22);
+  --font-deco: "ZCOOL KuaiLe", "站酷文艺体", "STKaiti", "KaiTi",
+    "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-body: "PingFang SC", "Microsoft YaHei", "Noto Sans SC",
+    "Segoe UI", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-body);
+  background: #081f2c;
+  color: var(--white);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* ============ Stage / Canvas (16:9 design canvas) ============ */
+.stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #081f2c;
+}
+
+.canvas {
+  position: relative;
+  overflow: hidden;
+  width: min(100vw, calc(100vh * 16 / 9));
+  height: min(100vh, calc(100vw * 9 / 16));
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+}
+
+.canvas > .bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* soft dark overlay to help interactive UI stand out on bright art */
+.canvas > .tint {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(20, 60, 85, 0) 55%,
+    rgba(15, 45, 65, 0.28) 100%
+  );
+  pointer-events: none;
+}
+
+/* position helper: use as translate(-50%,-50%) anchored elements */
+.anchor {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+/* ============ Buttons ============ */
+.btn {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--font-deco);
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, #c9f6fb 0%, var(--cyan) 55%, #8fe6f5 100%);
+  color: var(--dark);
+  border: 3px solid var(--cyan-border);
+  box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 16px 34px rgba(18, 90, 115, 0.45);
+  filter: brightness(1.05);
+}
+
+.btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.btn .btn-ico {
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+/* darker variant used on choose/PttLB pages */
+.btn-dark {
+  background: linear-gradient(180deg, #3a6278 0%, var(--dark) 60%, #21404f 100%);
+  color: var(--white);
+  border-color: var(--teal);
+  box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn-dark:hover {
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+}
+
+/* ============ Settings / Gear menu (shared, every page) ============ */
+.gear {
+  position: absolute;
+  top: 1.6%;
+  left: 1.6%;
+  width: 4.2%;
+  height: 7.4%;
+  min-width: 34px;
+  min-height: 60px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  filter: drop-shadow(0 3px 6px rgba(10, 40, 60, 0.55));
+  transition: transform 0.4s ease;
+}
+
+.gear svg,
+.gear img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.gear:hover svg,
+.gear:hover img,
+.gear.spinning svg,
+.gear.spinning img {
+  animation: gear-spin 3.2s linear infinite;
+}
+
+@keyframes gear-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* settings panel drops from the very top of the screen */
+.settings-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 70;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.settings-panel.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.settings-panel .panel-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding: 16px 26px 18px;
+  background: linear-gradient(180deg, rgba(30, 74, 96, 0.97), rgba(22, 58, 78, 0.96));
+  border-bottom: 3px solid var(--teal);
+  box-shadow: 0 14px 30px rgba(5, 25, 40, 0.5);
+  font-family: var(--font-deco);
+}
+
+.panel-inner .panel-label {
+  font-size: clamp(12px, 1.6vw, 22px);
+  color: var(--cyan-light);
+  letter-spacing: 2px;
+  margin-right: 4px;
+}
+
+/* segmented control */
+.seg {
+  display: inline-flex;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 2px solid var(--teal);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.seg button {
+  padding: 8px 18px;
+  font-family: var(--font-deco);
+  font-size: clamp(12px, 1.4vw, 20px);
+  color: var(--cyan-light);
+  transition: background 0.25s ease, color 0.25s ease;
+  white-space: nowrap;
+}
+
+.seg button + button {
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.seg button.active {
+  background: var(--cyan);
+  color: var(--dark);
+  font-weight: 700;
+}
+
+/* music switch */
+.switch {
+  position: relative;
+  width: 64px;
+  height: 30px;
+  border-radius: 18px;
+  border: 2px solid var(--teal);
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.switch .knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--cyan);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.switch.on {
+  background: rgba(64, 180, 200, 0.35);
+  border-color: var(--cyan-border);
+}
+
+.switch.on .knob {
+  transform: translateX(34px);
+  background: #ffffff;
+}
+
+.music-state {
+  font-size: clamp(11px, 1.2vw, 17px);
+  color: var(--cyan-light);
+  min-width: 66px;
+}
+
+/* volume slider (next to the music switch) */
+.vol-label {
+  margin-left: 4px;
+}
+
+.vol-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 160px;
+  max-width: 30vw;
+  height: 8px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--teal), var(--cyan-border));
+  box-shadow: inset 0 1px 3px rgba(5, 25, 40, 0.5);
+  cursor: pointer;
+  outline: none;
+}
+
+.vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--teal);
+  box-shadow: 0 2px 6px rgba(5, 25, 40, 0.45);
+  transition: transform 0.15s ease;
+}
+
+.vol-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.vol-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--teal);
+  box-shadow: 0 2px 6px rgba(5, 25, 40, 0.45);
+}
+
+.vol-slider::-moz-range-track {
+  height: 8px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--teal), var(--cyan-border));
+}
+
+/* ============ Fade-in helper ============ */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.9s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* float animation for decorations */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ============ Responsive canvas fallback ============ */
+@media (max-aspect-ratio: 16/9) {
+  .canvas {
+    width: min(100vw, calc(100vh * 16 / 9));
+    height: min(100vh, calc(100vw * 9 / 16));
+  }
+}
+
+/* =====================================================================
+   FIRST PAGE
+   ===================================================================== */
+.first-logo {
+  left: 51.5%;
+  top: 34.7%;
+  width: 66.5%;
+  height: auto;
+  opacity: 0.69;
+  pointer-events: none;
+  filter: drop-shadow(0 24px 46px rgba(15, 60, 90, 0.4));
+}
+
+/* "Tap to start" button (bottom centre) — looks EXACTLY like the original
+   box + text in first_page.svg, now a real clickable button. */
+.title-box {
+  left: 50.7%;
+  top: 72.4%;
+  width: 23.1%;
+  height: 12.3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: rgb(180, 239, 244); /* original box fill #B4EFF4 */
+  border: 3px solid rgb(128, 230, 249); /* original stroke #80E6F9 */
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.title-box:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 12px 30px rgba(18, 100, 130, 0.5), 0 0 0 3px rgba(180, 239, 244, 0.35);
+}
+
+.title-box:active {
+  filter: brightness(0.96);
+}
+
+.title-box .title-text {
+  width: 66%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =====================================================================
+   CHOOSE PAGE  (three independent hover boxes)
+   ===================================================================== */
+.choose-title {
+  left: 51.4%;
+  top: 30.8%;
+  width: 32.3%;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 22px rgba(15, 60, 90, 0.5));
+}
+
+.choose-hint {
+  left: 50%;
+  top: 94.5%;
+  font-family: var(--font-deco);
+  font-size: clamp(11px, 1.5vw, 24px);
+  letter-spacing: 4px;
+  color: var(--cyan-light);
+  pointer-events: none;
+  text-shadow: 0 2px 10px rgba(10, 45, 70, 0.8);
+  white-space: nowrap;
+}
+
+/* --- hover boxes --- */
+.choose-box {
+  left: var(--bx, 50%);
+  top: 54.2%;
+  width: 13.1%;
+  height: 26.7%;
+  border-radius: 24px;
+  border: 4px solid var(--teal);
+  background: var(--dark);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 2;
+  transition: top 0.5s cubic-bezier(0.3, 1.1, 0.4, 1),
+    width 0.5s cubic-bezier(0.3, 1.1, 0.4, 1),
+    height 0.5s cubic-bezier(0.3, 1.1, 0.4, 1),
+    box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.choose-box img.art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.6s ease;
+}
+
+.choose-box:hover,
+.choose-box.expanded {
+  top: 63%;
+  width: 17.5%;
+  height: 44.2%;
+  border-color: var(--cyan-border);
+  box-shadow: 0 26px 55px rgba(8, 45, 68, 0.65);
+  z-index: 5;
+}
+
+.choose-box:hover img.art,
+.choose-box.expanded img.art {
+  transform: scale(1.08);
+}
+
+.box-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 45, 65, 0) 30%,
+    rgba(15, 42, 60, 0.55) 70%,
+    rgba(16, 46, 65, 0.85) 100%
+  );
+  opacity: 0.55;
+  transition: opacity 0.5s ease;
+}
+
+.choose-box:hover .box-shade,
+.choose-box.expanded .box-shade {
+  opacity: 1;
+}
+
+.box-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 6% 7% 5%;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease 0.08s, transform 0.5s ease 0.08s;
+}
+
+.choose-box:hover .box-text,
+.choose-box.expanded .box-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.box-text h3 {
+  font-family: var(--font-deco);
+  font-size: clamp(12px, 1.7vw, 30px);
+  letter-spacing: 2px;
+  color: var(--white);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.box-text p {
+  margin-top: 2.5%;
+  font-size: clamp(8px, 0.95vw, 15px);
+  line-height: 1.5;
+  color: var(--cyan-light);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.box-text .box-cta {
+  display: inline-block;
+  margin-top: 3%;
+  padding: 1.6% 9%;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #d7fbff, var(--cyan) 60%, #8fe6f5);
+  color: var(--dark);
+  border: 2px solid var(--cyan-border);
+  font-family: var(--font-deco);
+  font-size: clamp(9px, 1vw, 17px);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* =====================================================================
+   PTTLB PAGE (four navigation buttons)
+   ===================================================================== */
+.pttlb-title {
+  left: 21.6%;
+  top: 20.4%;
+  width: 35.3%;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 20px rgba(10, 40, 65, 0.55));
+}
+
+/* game logo placed centred inside the upper-left title box (over the banner) */
+.pttlb-logo {
+  left: 21.7%;
+  top: 19.7%;
+  width: 32.7%;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 16px rgba(10, 40, 65, 0.6));
+}
+
+.pttlb-sub {
+  left: 22.4%;
+  top: 38.9%;
+  width: 25%;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 14px rgba(10, 40, 65, 0.5));
+}
+
+.pttlb-btn {
+  left: 20.7%;
+  width: 20.6%;
+  height: 5.5%;
+  border-radius: 30px;
+  background: rgba(168, 202, 208, 0.32);
+  border: 3px solid rgba(255, 255, 255, 0.55);
+  color: var(--white);
+  font-family: var(--font-deco);
+  font-size: clamp(12px, 1.9vw, 32px);
+  letter-spacing: 2px;
+  text-shadow: 0 2px 6px rgba(10, 40, 60, 0.7);
+  backdrop-filter: blur(2px);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.pttlb-btn:hover {
+  background: rgba(46, 79, 98, 0.78);
+  border-color: var(--cyan-border);
+  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow: 0 16px 34px rgba(8, 40, 60, 0.55);
+  text-shadow: 0 0 14px rgba(180, 239, 244, 0.8);
+}
+
+.back-btn {
+  left: 4.2%;
+  top: 93%;
+  padding: 1.1% 2.6%;
+  border-radius: 22px;
+  background: rgba(30, 74, 96, 0.75);
+  border: 2px solid var(--teal);
+  color: var(--cyan-light);
+  font-family: var(--font-deco);
+  font-size: clamp(11px, 1.2vw, 20px);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  box-shadow: var(--shadow-soft);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(46, 79, 98, 0.95);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* =====================================================================
+   SUB PAGES (play / showcase / download / about)
+   ===================================================================== */
+.tint-strong {
+  background: linear-gradient(
+      180deg,
+      rgba(14, 42, 60, 0.55) 0%,
+      rgba(12, 38, 56, 0.42) 45%,
+      rgba(10, 34, 50, 0.62) 100%
+    ),
+    radial-gradient(ellipse at 50% 35%, rgba(60, 160, 190, 0.18) 0%, transparent 60%);
+}
+
+.sub-head {
+  position: absolute;
+  left: 50%;
+  top: 10.5%;
+  transform: translateX(-50%);
+  width: 82%;
+  text-align: center;
+}
+
+.sub-head h1 {
+  font-family: var(--font-deco);
+  font-size: clamp(24px, 5vw, 74px);
+  letter-spacing: 6px;
+  color: var(--white);
+  text-shadow: 0 4px 18px rgba(10, 45, 70, 0.85), 0 0 30px rgba(180, 239, 244, 0.35);
+}
+
+.sub-head .lead {
+  margin-top: 1%;
+  font-family: var(--font-deco);
+  font-size: clamp(12px, 1.7vw, 26px);
+  letter-spacing: 3px;
+  color: var(--cyan-light);
+  text-shadow: 0 2px 8px rgba(10, 45, 70, 0.8);
+}
+
+/* card row */
+.cards {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 2.4%;
+  width: 84%;
+  height: 46%;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.card {
+  flex: 0 1 27%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4%;
+  padding: 2.6% 2.8%;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(34, 78, 100, 0.9), rgba(22, 58, 80, 0.92));
+  border: 2px solid var(--teal);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--cyan-border);
+  box-shadow: 0 22px 44px rgba(6, 32, 50, 0.6);
+}
+
+.card-ico {
+  font-size: clamp(26px, 3.6vw, 54px);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+  line-height: 1;
+}
+
+.card h3 {
+  font-family: var(--font-deco);
+  font-size: clamp(15px, 2vw, 30px);
+  letter-spacing: 2px;
+  color: var(--cyan-light);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.card p {
+  font-size: clamp(9px, 1.05vw, 16px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.card-btn {
+  padding: 2.2% 14%;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #d7fbff, var(--cyan) 60%, #8fe6f5);
+  border: 2px solid var(--cyan-border);
+  color: var(--dark);
+  font-family: var(--font-deco);
+  font-size: clamp(10px, 1.1vw, 18px);
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.card-btn:hover {
+  transform: scale(1.07);
+  filter: brightness(1.06);
+}
+
+/* media cards (showcase) */
+.card-media .media {
+  width: 92%;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.card-media h3 {
+  flex: 0 0 auto;
+}
+
+.card-media p {
+  flex: 0 0 auto;
+}
+
+.card-media .card-btn {
+  flex: 0 0 auto;
+}
+
+/* download note */
+.dl-note {
+  left: 50%;
+  top: 92.5%;
+  font-family: var(--font-deco);
+  font-size: clamp(10px, 1.1vw, 18px);
+  letter-spacing: 1px;
+  color: var(--cyan-light);
+  text-shadow: 0 2px 8px rgba(10, 45, 70, 0.85);
+  white-space: nowrap;
+}
+
+/* about page */
+.about-intro {
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  width: 74%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4%;
+}
+
+.about-intro p {
+  font-size: clamp(10px, 1.25vw, 20px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.team {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  transform: translate(-50%, -50%);
+  width: 84%;
+  text-align: center;
+}
+
+.team-label {
+  font-family: var(--font-deco);
+  font-size: clamp(15px, 2.1vw, 32px);
+  letter-spacing: 4px;
+  color: var(--cyan-light);
+  text-shadow: 0 2px 10px rgba(10, 45, 70, 0.85);
+  margin-bottom: 3%;
+}
+
+.team-grid {
+  display: flex;
+  gap: 2.4%;
+  justify-content: center;
+}
+
+.team-chip {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8%;
+  padding: 3% 2%;
+  background: linear-gradient(180deg, rgba(34, 78, 100, 0.88), rgba(22, 58, 80, 0.9));
+  border: 2px solid var(--teal);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.team-chip:hover {
+  transform: translateY(-6px);
+  border-color: var(--cyan-border);
+}
+
+.team-ico {
+  font-size: clamp(22px, 2.6vw, 40px);
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4));
+}
+
+.team-chip span {
+  font-family: var(--font-deco);
+  font-size: clamp(11px, 1.2vw, 20px);
+  color: var(--cyan-light);
+}
+
+.thanks {
+  left: 50%;
+  top: 83%;
+  font-family: var(--font-deco);
+  font-size: clamp(13px, 1.6vw, 28px);
+  letter-spacing: 3px;
+  color: var(--cyan-light);
+  text-shadow: 0 0 18px rgba(180, 239, 244, 0.6);
+  white-space: nowrap;
+}
+
+/* adjust about back button so it does not overlap thanks */
+.about-page .back-btn {
+  top: 94%;
+}
+
+/* =====================================================================
+   MOBILE / PHONE ADAPTATIONS
+   ===================================================================== */
+
+/* PttLB page: button vertical positions (replaced inline styles) */
+.p-btn-1 { top: 51.3%; }
+.p-btn-2 { top: 60.2%; }
+.p-btn-3 { top: 69.2%; }
+.p-btn-4 { top: 78.2%; }
+
+/* touch polish for interactive elements (all screen sizes) */
+button,
+.choose-box,
+input[type="range"],
+a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overscroll-behavior: none;
+}
+
+/* ---- Portrait phones / tablets: fill the screen, cover the 16:9 art ---- */
+@media (max-width: 900px) and (orientation: portrait) {
+  .stage {
+    background: linear-gradient(180deg, #0d2c3e 0%, #081f2c 100%);
+  }
+
+  .canvas {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .canvas > .bg {
+    object-fit: cover;
+  }
+
+  /* readable fonts on small screens */
+  .box-text h3 { font-size: clamp(15px, 4.6vw, 26px); }
+  .box-text p { font-size: clamp(10px, 3.2vw, 15px); }
+  .box-text .box-cta { font-size: clamp(11px, 3.4vw, 16px); }
+  .sub-head h1 { font-size: clamp(22px, 7vw, 40px); letter-spacing: 3px; }
+  .sub-head .lead { font-size: clamp(12px, 3.8vw, 20px); }
+  .card h3 { font-size: clamp(14px, 4.2vw, 22px); }
+  .card p { font-size: clamp(10px, 3vw, 14px); }
+  .card-btn { font-size: clamp(11px, 3.2vw, 16px); }
+  .pttlb-btn { font-size: clamp(14px, 4.4vw, 22px); }
+  .choose-hint { font-size: clamp(13px, 4vw, 20px); }
+  .dl-note { font-size: clamp(11px, 3.4vw, 16px); }
+  .about-intro p { font-size: clamp(12px, 3.8vw, 18px); }
+  .team-label { font-size: clamp(14px, 4.4vw, 22px); }
+  .team-chip span { font-size: clamp(12px, 3.6vw, 18px); }
+  .back-btn { font-size: clamp(13px, 3.8vw, 18px); padding: 1.4% 3.4%; }
+  .title-box { border-radius: 24px; }
+
+  /* bigger tap targets */
+  .gear { min-width: 42px; min-height: 70px; }
+  .pttlb-btn { height: 6.4%; }
+  .cards { width: 92%; }
+  .card { flex-basis: 30%; }
+
+  /* settings panel: compact for narrow screens */
+  .settings-panel .panel-inner { gap: 12px; padding: 12px 12px 14px; }
+  .seg button { padding: 8px 14px; font-size: clamp(12px, 3.6vw, 18px); }
+  .vol-slider { width: 120px; max-width: 26vw; }
+
+  /* PttLB page: centre the title + buttons for a narrow screen */
+  .pttlb-title { left: 50%; top: 13%; width: 78%; }
+  .pttlb-logo { left: 50%; top: 13%; width: 76%; }
+  .pttlb-sub { left: 50%; top: 27%; width: 62%; }
+  .pttlb-btn { left: 50%; width: 78%; }
+  .p-btn-1 { top: 41%; }
+  .p-btn-2 { top: 50%; }
+  .p-btn-3 { top: 59%; }
+  .p-btn-4 { top: 68%; }
+
+  /* keep the back button fully on-screen on narrow screens */
+  .back-btn {
+    left: 16px;
+    transform: translateY(-50%);
+  }
+
+  /* choose page: compact boxes on narrow screens */
+  .choose-box { width: 17%; height: 22%; top: 55%; }
+  .choose-box:hover,
+  .choose-box.expanded { width: 22%; top: 63%; height: 34%; }
+  .choose-title { width: 52%; top: 21%; }
+  .choose-hint { top: 95%; }
+}
+
+/* hide the box description on very small screens (keeps boxes clean) */
+@media (max-width: 480px) {
+  .box-text p {
+    display: none;
+  }
+}
+
+/* ---- Short landscape phones: keep 16:9, tidy the settings panel ---- */
+@media (max-height: 480px) and (orientation: landscape) {
+  .settings-panel .panel-inner { gap: 12px; padding: 10px 12px 12px; }
+  .vol-slider { width: 110px; }
+  .seg button { padding: 6px 12px; }
+}

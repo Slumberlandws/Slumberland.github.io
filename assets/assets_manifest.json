@@ -1,0 +1,131 @@
+{
+  "first_page": {
+    "svg": "picture\\first_page.svg",
+    "images": {
+      "_Image2": {
+        "file": "first_page__Image2.png",
+        "width": "8000px",
+        "height": "4500px",
+        "bytes": 149386
+      },
+      "_Image3": {
+        "file": "first_page__Image3.png",
+        "width": "3000px",
+        "height": "3000px",
+        "bytes": 798233
+      },
+      "_Image4": {
+        "file": "first_page__Image4.png",
+        "width": "1227px",
+        "height": "238px",
+        "bytes": 86173
+      }
+    }
+  },
+  "choose_page": {
+    "svg": "picture\\choose_page.svg",
+    "images": {
+      "_Image2": {
+        "file": "choose_page__Image2.png",
+        "width": "8000px",
+        "height": "4500px",
+        "bytes": 149369
+      },
+      "_Image3": {
+        "file": "choose_page__Image3.png",
+        "width": "2587px",
+        "height": "665px",
+        "bytes": 295037
+      },
+      "_Image4": {
+        "file": "choose_page__Image4.png",
+        "width": "1206px",
+        "height": "1358px",
+        "bytes": 51850
+      },
+      "_Image8": {
+        "file": "choose_page__Image8.png",
+        "width": "641px",
+        "height": "478px",
+        "bytes": 147319
+      },
+      "_Image9": {
+        "file": "choose_page__Image9.png",
+        "width": "367px",
+        "height": "179px",
+        "bytes": 56559
+      },
+      "_Image10": {
+        "file": "choose_page__Image10.png",
+        "width": "487px",
+        "height": "300px",
+        "bytes": 63701
+      },
+      "_Image11": {
+        "file": "choose_page__Image11.png",
+        "width": "534px",
+        "height": "105px",
+        "bytes": 47336
+      },
+      "_Image12": {
+        "file": "choose_page__Image12.png",
+        "width": "929px",
+        "height": "142px",
+        "bytes": 75079
+      },
+      "_Image13": {
+        "file": "choose_page__Image13.png",
+        "width": "817px",
+        "height": "105px",
+        "bytes": 62208
+      },
+      "_Image14": {
+        "file": "choose_page__Image14.png",
+        "width": "3000px",
+        "height": "3000px",
+        "bytes": 301123
+      },
+      "_Image15": {
+        "file": "choose_page__Image15.png",
+        "width": "1596px",
+        "height": "2186px",
+        "bytes": 82372
+      }
+    }
+  },
+  "PttLB_page": {
+    "svg": "picture\\PttLB_page.svg",
+    "images": {
+      "_Image2": {
+        "file": "PttLB_page__Image2.png",
+        "width": "1920px",
+        "height": "1080px",
+        "bytes": 2477867
+      },
+      "_Image3": {
+        "file": "PttLB_page__Image3.png",
+        "width": "2823px",
+        "height": "826px",
+        "bytes": 17792
+      },
+      "_Image4": {
+        "file": "PttLB_page__Image4.png",
+        "width": "1691px",
+        "height": "294px",
+        "bytes": 10169
+      },
+      "_Image5": {
+        "file": "PttLB_page__Image5.png",
+        "width": "1998px",
+        "height": "508px",
+        "bytes": 188827
+      },
+      "_Image7": {
+        "file": "PttLB_page__Image7.png",
+        "width": "2617px",
+        "height": "528px",
+        "bytes": 376437
+      }
+    }
+  }
+}

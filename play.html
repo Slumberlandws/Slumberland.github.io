@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PttLB - Play</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="stage">
+    <div class="canvas sub-page">
+
+      <img class="bg" src="assets/img/PttLB_page__Image2.png" alt="" />
+      <div class="tint tint-strong"></div>
+
+      <!-- header -->
+      <header class="sub-head fade-in">
+        <h1 data-i18n="play_title">Play Now</h1>
+        <p class="lead" data-i18n="play_lead">Choose how you want to play</p>
+      </header>
+
+      <!-- mode cards -->
+      <div class="cards fade-in">
+        <div class="card">
+          <div class="card-ico">&#9889;</div>
+          <h3 data-i18n="play_quick">Quick Match</h3>
+          <p data-i18n="play_quick_desc">Jump straight into a game, no waiting.</p>
+          <button class="card-btn" data-i18n="play_start">Start Game</button>
+        </div>
+
+        <div class="card">
+          <div class="card-ico">&#128218;</div>
+          <h3 data-i18n="play_story">Story Mode</h3>
+          <p data-i18n="play_story_desc">Follow the adventure from the very beginning.</p>
+          <button class="card-btn" data-i18n="play_start">Start Game</button>
+        </div>
+
+        <div class="card">
+          <div class="card-ico">&#9876;</div>
+          <h3 data-i18n="play_versus">Versus Friend</h3>
+          <p data-i18n="play_versus_desc">Invite a friend and battle head to head.</p>
+          <button class="card-btn" data-i18n="play_start">Start Game</button>
+        </div>
+      </div>
+
+      <!-- back -->
+      <button class="anchor back-btn fade-in" data-i18n="pttlb_back"
+        onclick="go('pttlb.html')">&#8592; Back</button>
+
+      <!-- gear + settings -->
+      <button class="gear" aria-label="Settings">
+        <img src="assets/img/齿轮.png" alt="Settings" />
+      </button>
+
+      <div class="settings-panel">
+        <div class="panel-inner">
+          <span class="panel-label" data-i18n="lang_label">Language</span>
+          <div class="seg">
+            <button type="button" data-lang-btn="zh" class="active">中文</button>
+            <button type="button" data-lang-btn="en">English</button>
+          </div>
+          <span class="panel-label" data-i18n="music_label">Music</span>
+          <button type="button" class="switch" data-music-switch><span class="knob"></span></button>
+          <span class="music-state" data-music-state>ON</span>
+          <span class="panel-label vol-label" data-i18n="volume_label">Volume</span>
+          <input type="range" class="vol-slider" data-volume-slider min="0" max="100" value="100" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

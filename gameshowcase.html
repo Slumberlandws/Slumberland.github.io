@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PttLB - Showcase</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="stage">
+    <div class="canvas sub-page">
+
+      <img class="bg" src="assets/img/PttLB_page__Image2.png" alt="" />
+      <div class="tint tint-strong"></div>
+
+      <header class="sub-head fade-in">
+        <h1 data-i18n="show_title">Game Showcase</h1>
+        <p class="lead" data-i18n="show_lead">Explore the world of PttLB</p>
+      </header>
+
+      <!-- showcase cards -->
+      <div class="cards fade-in">
+        <div class="card card-media">
+          <div class="media" style="background-image:url('assets/img/choose_page__Image15.png')"></div>
+          <h3 data-i18n="show_c1_t">Characters</h3>
+          <p data-i18n="show_c1_d">Meet the heroes of the PttLB universe and learn their stories.</p>
+          <button class="card-btn" data-i18n="show_watch">Watch</button>
+        </div>
+
+        <div class="card card-media">
+          <div class="media" style="background-image:url('assets/img/choose_page__Image2.png')"></div>
+          <h3 data-i18n="show_c2_t">Scenes</h3>
+          <p data-i18n="show_c2_d">Wander through beautifully illustrated worlds and hidden lands.</p>
+          <button class="card-btn" data-i18n="show_watch">Watch</button>
+        </div>
+
+        <div class="card card-media">
+          <div class="media" style="background-image:url('assets/img/first_page__Image2.png')"></div>
+          <h3 data-i18n="show_c3_t">Trailers</h3>
+          <p data-i18n="show_c3_d">Watch the latest trailers and behind-the-scenes previews.</p>
+          <button class="card-btn" data-i18n="show_watch">Watch</button>
+        </div>
+      </div>
+
+      <button class="anchor back-btn fade-in" data-i18n="pttlb_back"
+        onclick="go('pttlb.html')">&#8592; Back</button>
+
+      <button class="gear" aria-label="Settings">
+        <img src="assets/img/齿轮.png" alt="Settings" />
+      </button>
+
+      <div class="settings-panel">
+        <div class="panel-inner">
+          <span class="panel-label" data-i18n="lang_label">Language</span>
+          <div class="seg">
+            <button type="button" data-lang-btn="zh" class="active">中文</button>
+            <button type="button" data-lang-btn="en">English</button>
+          </div>
+          <span class="panel-label" data-i18n="music_label">Music</span>
+          <button type="button" class="switch" data-music-switch><span class="knob"></span></button>
+          <span class="music-state" data-music-state>ON</span>
+          <span class="panel-label vol-label" data-i18n="volume_label">Volume</span>
+          <input type="range" class="vol-slider" data-volume-slider min="0" max="100" value="100" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

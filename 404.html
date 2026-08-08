@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PttLB</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="stage">
+    <div class="canvas first-page">
+
+      <!-- ======== background art ======== -->
+      <img class="bg" src="assets/img/first_page__Image2.png" alt="" />
+      <div class="tint"></div>
+
+      <!-- ======== center logo (bleeds off the top, like the design) ======== -->
+      <img class="anchor first-logo fade-in" src="assets/img/first_page__Image3.png" alt="PttLB logo" />
+
+      <!-- ======== "Tap to start" button -> choose page ========
+           Looks exactly like the original box + "tap to start" text in
+           first_page.svg, but is now a real clickable button. -->
+      <button class="anchor title-box fade-in" aria-label="Tap to start"
+        onclick="go('choose.html')">
+        <img class="title-text" src="assets/img/first_page__Image4.png" alt="Tap to start" />
+      </button>
+
+      <!-- ======== settings gear (top-left) + panel ======== -->
+      <button class="gear" aria-label="Settings">
+        <img src="assets/img/齿轮.png" alt="Settings" />
+      </button>
+
+      <div class="settings-panel">
+        <div class="panel-inner">
+          <span class="panel-label" data-i18n="lang_label">Language</span>
+          <div class="seg">
+            <button type="button" data-lang-btn="zh" class="active">中文</button>
+            <button type="button" data-lang-btn="en">English</button>
+          </div>
+          <span class="panel-label" data-i18n="music_label">Music</span>
+          <button type="button" class="switch" data-music-switch><span class="knob"></span></button>
+          <span class="music-state" data-music-state>ON</span>
+          <span class="panel-label vol-label" data-i18n="volume_label">Volume</span>
+          <input type="range" class="vol-slider" data-volume-slider min="0" max="100" value="100" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

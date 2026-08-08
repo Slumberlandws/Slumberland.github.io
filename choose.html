@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PttLB - Choose</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="stage">
+    <div class="canvas choose-page">
+
+      <!-- ======== background art ======== -->
+      <img class="bg" src="assets/img/choose_page__Image2.png" alt="" />
+      <div class="tint"></div>
+
+      <!-- ======== page title ======== -->
+      <img class="anchor choose-title fade-in" src="assets/img/choose_page__Image3.png" alt="Choose your story" />
+
+      <!-- ======== three independent hover boxes ======== -->
+      <!-- leftmost box -> PttLB page -->
+      <div class="anchor choose-box fade-in" style="--bx:27.7%;" data-target="pttlb.html">
+        <img class="art" src="assets/img/choose_page__Image15.png" alt="" />
+        <div class="box-shade"></div>
+        <div class="box-text">
+          <h3 data-i18n="box1_title">Story Mode</h3>
+          <p data-i18n="box1_desc">A brand-new adventure awaits you. Step into the world of PttLB.</p>
+          <span class="box-cta" data-i18n="choose_go">Enter</span>
+        </div>
+      </div>
+
+      <!-- middle box -->
+      <div class="anchor choose-box fade-in" style="--bx:50.7%;" data-target="play.html">
+        <img class="art" src="assets/img/choose_page__Image15.png" alt="" />
+        <div class="box-shade"></div>
+        <div class="box-text">
+          <h3 data-i18n="box2_title">Free Battle</h3>
+          <p data-i18n="box2_desc">Jump into quick battles and challenge players from all over.</p>
+          <span class="box-cta" data-i18n="choose_go">Enter</span>
+        </div>
+      </div>
+
+      <!-- rightmost box -->
+      <div class="anchor choose-box fade-in" style="--bx:73.7%;" data-target="gameshowcase.html">
+        <img class="art" src="assets/img/choose_page__Image15.png" alt="" />
+        <div class="box-shade"></div>
+        <div class="box-text">
+          <h3 data-i18n="box3_title">Gallery</h3>
+          <p data-i18n="box3_desc">Unlock gorgeous artwork and collect every precious moment.</p>
+          <span class="box-cta" data-i18n="choose_go">Enter</span>
+        </div>
+      </div>
+
+      <!-- ======== bottom hint ======== -->
+      <div class="anchor choose-hint fade-in" data-i18n="choose_hint">Choose your story</div>
+
+      <!-- ======== settings gear (top-left) + panel ======== -->
+      <button class="gear" aria-label="Settings">
+        <img src="assets/img/齿轮.png" alt="Settings" />
+      </button>
+
+      <div class="settings-panel">
+        <div class="panel-inner">
+          <span class="panel-label" data-i18n="lang_label">Language</span>
+          <div class="seg">
+            <button type="button" data-lang-btn="zh" class="active">中文</button>
+            <button type="button" data-lang-btn="en">English</button>
+          </div>
+          <span class="panel-label" data-i18n="music_label">Music</span>
+          <button type="button" class="switch" data-music-switch><span class="knob"></span></button>
+          <span class="music-state" data-music-state>ON</span>
+          <span class="panel-label vol-label" data-i18n="volume_label">Volume</span>
+          <input type="range" class="vol-slider" data-volume-slider min="0" max="100" value="100" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

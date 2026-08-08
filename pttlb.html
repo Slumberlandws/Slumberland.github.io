@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PttLB</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="stage">
+    <div class="canvas pttlb-page">
+
+      <!-- ======== background art ======== -->
+      <img class="bg" src="assets/img/PttLB_page__Image2.png" alt="" />
+      <div class="tint"></div>
+
+      <!-- ======== page title + subtitle (left side, from the design) ======== -->
+      <img class="anchor pttlb-title fade-in" src="assets/img/PttLB_page__Image3.png" alt="PttLB" />
+      <img class="anchor pttlb-logo fade-in" src="assets/img/PttLB_page__Image7.png" alt="PttLB logo" />
+      <img class="anchor pttlb-sub fade-in" src="assets/img/PttLB_page__Image5.png" alt="subtitle" />
+
+      <!-- ======== four navigation buttons (from the design) ======== -->
+      <button class="anchor pttlb-btn p-btn-1 fade-in"
+        data-i18n="btn_play" onclick="go('play.html')">Play Now</button>
+
+      <button class="anchor pttlb-btn p-btn-2 fade-in"
+        data-i18n="btn_showcase" onclick="go('gameshowcase.html')">Gameshowcase</button>
+
+      <button class="anchor pttlb-btn p-btn-3 fade-in"
+        data-i18n="btn_download" onclick="go('download.html')">Download</button>
+
+      <button class="anchor pttlb-btn p-btn-4 fade-in"
+        data-i18n="btn_about" onclick="go('about.html')">About Us</button>
+
+      <!-- ======== back to choose page ======== -->
+      <button class="anchor back-btn fade-in" data-i18n="pttlb_back"
+        onclick="go('choose.html')">&#8592; Back</button>
+
+      <!-- ======== settings gear (top-left) + panel ======== -->
+      <button class="gear" aria-label="Settings">
+        <img src="assets/img/齿轮.png" alt="Settings" />
+      </button>
+
+      <div class="settings-panel">
+        <div class="panel-inner">
+          <span class="panel-label" data-i18n="lang_label">Language</span>
+          <div class="seg">
+            <button type="button" data-lang-btn="zh" class="active">中文</button>
+            <button type="button" data-lang-btn="en">English</button>
+          </div>
+          <span class="panel-label" data-i18n="music_label">Music</span>
+          <button type="button" class="switch" data-music-switch><span class="knob"></span></button>
+          <span class="music-state" data-music-state>ON</span>
+          <span class="panel-label vol-label" data-i18n="volume_label">Volume</span>
+          <input type="range" class="vol-slider" data-volume-slider min="0" max="100" value="100" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
