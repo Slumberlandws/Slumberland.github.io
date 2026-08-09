@@ -1,0 +1,23 @@
+# Normalize line endings — all text files are stored as LF in the repo.
+* text=auto
+
+# Text formats: always LF, no CRLF warnings on Windows
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.svg  text eol=lf
+*.md   text eol=lf
+*.py   text eol=lf
+*.txt  text eol=lf
+
+# Binary formats: never normalize
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.wav  binary
+*.mp3  binary
+*.flac binary
