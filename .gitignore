@@ -6,6 +6,7 @@ __pycache__/
 # large local-only design sources (not needed at runtime)
 picture/
 UI_content/
+Logo 2-head_photo/
 
 # large local audio master (not deployed; compressed MP3 is served instead)
 assets/audio/background.wav

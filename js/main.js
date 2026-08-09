@@ -14,6 +14,7 @@
   const I18N = {
     en: {
       lang_label: "Language",
+      home_label: "Home",
       music_label: "Music",
       volume_label: "Volume",
       music_on: "ON",
@@ -22,10 +23,10 @@
       tap_to_start: "Tap to start",
       // choose page
       choose_hint: "Choose your story",
-      box1_title: "Story Mode",
-      box1_desc: "A brand-new adventure awaits you. Step into the world of PttLB.",
-      box2_title: "Free Battle",
-      box2_desc: "Jump into quick battles and challenge players from all over.",
+      box1_title: "Slumberland",
+      box1_desc: "Prelude to the Long Banquet",
+      box2_title: "Slumberland",
+      box2_desc: "The Last carnival",
       box3_title: "Gallery",
       box3_desc: "Unlock gorgeous artwork and collect every precious moment.",
       choose_go: "Enter",
@@ -83,6 +84,7 @@
     },
     zh: {
       lang_label: "语言",
+      home_label: "首页",
       music_label: "音乐",
       volume_label: "音量",
       music_on: "开",
@@ -91,10 +93,10 @@
       tap_to_start: "点击开始",
       // choose page
       choose_hint: "选择你的故事",
-      box1_title: "剧情模式",
-      box1_desc: "全新的冒险正在等待你，踏入PttLB的世界。",
-      box2_title: "自由对战",
-      box2_desc: "快速加入对局，与来自各地的玩家一决高下。",
+      box1_title: "眠境",
+      box1_desc: "《漫夜宴·序》",
+      box2_title: "眠境",
+      box2_desc: "《终焉狂欢》",
       box3_title: "图鉴收藏",
       box3_desc: "解锁精美插画，收藏每一份珍贵回忆。",
       choose_go: "进入",
@@ -495,6 +497,15 @@
     document.querySelectorAll("[data-volume-slider]").forEach((sl) => {
       sl.addEventListener("input", () => setVolume(sl.value));
     });
+
+    // back-to-home button (hidden on the home page itself)
+    document.querySelectorAll("[data-home-btn]").forEach((btn) => {
+      btn.classList.toggle("is-hidden", currentFile === "index.html");
+      btn.addEventListener("click", () => {
+        if (currentFile !== "index.html") go("index.html");
+        else scheduleHide();
+      });
+    });
   }
 
   /* ---------------- choose-page hover boxes navigation ---------------- */
@@ -533,14 +544,27 @@
     if (BASE === "/") BASE = "/";
 
     const canvas = document.querySelector(".canvas");
-    homeHTML = canvas ? canvas.innerHTML : null;
-
-    // if the user landed directly on an inner page URL, load it softly
     const initialFile = fileFromPath(location.pathname);
-    if (initialFile && initialFile !== "index.html") {
-      currentFile = initialFile; // already rendered (full page); avoid re-fetch
-    } else {
+
+    if (!initialFile || initialFile === "index.html") {
+      // landed on the home page (or an unknown path, e.g. the 404 fallback):
+      // the current canvas already IS the home page.
+      homeHTML = canvas ? canvas.innerHTML : null;
       currentFile = "index.html";
+    } else {
+      // landed directly on an inner page URL: the visible canvas is that inner
+      // page, so fetch index.html to save the REAL home content for "back to home".
+      currentFile = initialFile; // already rendered (full page); avoid re-fetch
+      fetch("index.html")
+        .then((r) => (r.ok ? r.text() : null))
+        .then((html) => {
+          if (html) {
+            const doc = new DOMParser().parseFromString(html, "text/html");
+            const src = doc.querySelector(".canvas");
+            if (src) homeHTML = src.innerHTML;
+          }
+        })
+        .catch(() => {});
     }
     initPage();
     if (prefs.music) resumeMusicOnInteraction();

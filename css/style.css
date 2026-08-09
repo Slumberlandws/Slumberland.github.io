@@ -345,6 +345,30 @@ img {
   background: linear-gradient(90deg, var(--teal), var(--cyan-border));
 }
 
+/* back-to-home button in the settings panel */
+.home-btn {
+  margin-right: 8px;
+  padding: 8px 20px;
+  border-radius: 22px;
+  border: 2px solid var(--teal);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--cyan-light);
+  font-family: var(--font-deco);
+  font-size: clamp(12px, 1.4vw, 20px);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.home-btn:hover {
+  background: var(--cyan);
+  color: var(--dark);
+}
+
+.home-btn.is-hidden {
+  display: none;
+}
+
 /* ============ Fade-in helper ============ */
 .fade-in {
   opacity: 0;
