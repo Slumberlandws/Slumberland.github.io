@@ -8,38 +8,39 @@
 </head>
 <body>
   <div class="stage">
-    <div class="canvas sub-page">
+    <div class="canvas sub-page showcase-page">
 
-      <img class="bg" src="assets/img/PttLB_page__Image2.png" alt="" />
-      <div class="tint tint-strong"></div>
-
+      <!-- Pure-colour showcase page (left image / right text).
+           新增展示项：复制一个 <article class="show-row"> 整段，换掉图片
+           路径和 data-i18n 文案即可，无需改 JS/CSS。 -->
       <header class="sub-head fade-in">
         <h1 data-i18n="show_title">Game Showcase</h1>
-        <p class="lead" data-i18n="show_lead">Explore the world of PttLB</p>
       </header>
 
-      <!-- showcase cards -->
-      <div class="cards fade-in">
-        <div class="card card-media">
-          <div class="media" style="background-image:url('assets/img/choose_page__Image15.png')"></div>
-          <h3 data-i18n="show_c1_t">Characters</h3>
-          <p data-i18n="show_c1_d">Meet the heroes of the PttLB universe and learn their stories.</p>
-          <button class="card-btn" data-i18n="show_watch">Watch</button>
-        </div>
+      <div class="showcase-list fade-in">
+        <article class="show-row">
+          <div class="show-media" style="background-image:url('assets/img/choose_page__Image15.png')"></div>
+          <div class="show-info">
+            <h3 data-i18n="show_c1_t">Characters</h3>
+            <p data-i18n="show_c1_d">Meet the heroes of the Slumberland universe and learn their stories.</p>
+          </div>
+        </article>
 
-        <div class="card card-media">
-          <div class="media" style="background-image:url('assets/img/choose_page__Image2.png')"></div>
-          <h3 data-i18n="show_c2_t">Scenes</h3>
-          <p data-i18n="show_c2_d">Wander through beautifully illustrated worlds and hidden lands.</p>
-          <button class="card-btn" data-i18n="show_watch">Watch</button>
-        </div>
+        <article class="show-row">
+          <div class="show-media" style="background-image:url('assets/img/choose_page__Image2.png')"></div>
+          <div class="show-info">
+            <h3 data-i18n="show_c2_t">Scenes</h3>
+            <p data-i18n="show_c2_d">Wander through beautifully illustrated worlds and hidden lands.</p>
+          </div>
+        </article>
 
-        <div class="card card-media">
-          <div class="media" style="background-image:url('assets/img/first_page__Image2.png')"></div>
-          <h3 data-i18n="show_c3_t">Trailers</h3>
-          <p data-i18n="show_c3_d">Watch the latest trailers and behind-the-scenes previews.</p>
-          <button class="card-btn" data-i18n="show_watch">Watch</button>
-        </div>
+        <article class="show-row">
+          <div class="show-media" style="background-image:url('assets/img/first_page__Image2.png')"></div>
+          <div class="show-info">
+            <h3 data-i18n="show_c3_t">Trailers</h3>
+            <p data-i18n="show_c3_d">Watch the latest trailers and behind-the-scenes previews.</p>
+          </div>
+        </article>
       </div>
 
       <button class="anchor back-btn fade-in" data-i18n="pttlb_back"

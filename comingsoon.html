@@ -8,30 +8,23 @@
 </head>
 <body>
   <div class="stage">
-    <div class="canvas sub-page game-bg">
+    <div class="canvas sub-page coming-page game-bg">
 
       <img class="bg" src="assets/img/game_back_new.png" alt="" />
       <div class="tint tint-strong"></div>
 
-      <header class="sub-head fade-in">
-        <h1 data-i18n="dl_title">Download</h1>
-        <p class="lead" data-i18n="dl_lead">Not yet available</p>
-      </header>
-
-      <!-- play on Steam (single option) -->
-      <div class="cards fade-in">
-        <div class="card steam-card">
-          <img class="card-ico steam-logo" src="https://store.st.dl.eccdnx.com/public/shared/images/header/logo_steam.svg" alt="Steam" />
-          <h3 data-i18n="dl_steam">Steam</h3>
-          <p data-i18n="dl_steam_d">Not yet available</p>
-          <a class="card-btn" href="https://store.steampowered.com" target="_blank" rel="noopener"
-            data-i18n="dl_steam_btn">Not yet available</a>
-        </div>
+      <!-- ======== coming soon ======== -->
+      <div class="coming-soon fade-in">
+        <div class="cs-clock">&#9203;</div>
+        <h1 class="cs-title" data-i18n="cs_title">Coming Soon</h1>
+        <p class="cs-sub" data-i18n="cs_sub">The adventure begins soon</p>
       </div>
 
+      <!-- ======== back to choose ======== -->
       <button class="anchor back-btn fade-in" data-i18n="pttlb_back"
-        onclick="go('pttlb.html')">&#8592; Back</button>
+        onclick="go('choose.html')">&#8592; Back</button>
 
+      <!-- ======== settings gear (top-left) + panel ======== -->
       <button class="gear" aria-label="Settings">
         <img src="assets/img/gear.png" alt="Settings" />
       </button>
